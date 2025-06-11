@@ -18,6 +18,7 @@ import MyFoods from './pages/MyFoods.jsx'
 import UpdateFood from './pages/UpdateFood.jsx'
 import AddFood from './pages/AddFood.jsx'
 import MyOrders from './pages/MyOrders.jsx'
+import Error from './pages/Error.jsx'
 
 
 const router = createBrowserRouter([
@@ -99,7 +100,7 @@ const router = createBrowserRouter([
   
     {
     path: "/*",
-    element: <h2>Error404</h2>
+    element: <Error></Error>
   },
   
 
