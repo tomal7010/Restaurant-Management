@@ -14,6 +14,10 @@ import FoodDetails from './pages/FoodDetails.jsx'
 import PurchasePage from './pages/PurchasePage.jsx'
 import PrivateRoute from './provider/PrivateRoute.jsx'
 import Gallery from './pages/Gallery.jsx'
+import MyFoods from './pages/MyFoods.jsx'
+import UpdateFood from './pages/UpdateFood.jsx'
+import AddFood from './pages/AddFood.jsx'
+import MyOrders from './pages/MyOrders.jsx'
 
 
 const router = createBrowserRouter([
@@ -63,6 +67,34 @@ const router = createBrowserRouter([
       {
         path:"/gallery",
         element: <Gallery></Gallery>
+      },
+
+      {
+        path :"/myFoods",
+        element :<PrivateRoute>
+          <MyFoods></MyFoods>
+        </PrivateRoute>
+      },
+
+      {
+        path :"/update-food/:id",
+        element :<PrivateRoute>
+          <UpdateFood></UpdateFood>
+        </PrivateRoute>
+      },
+
+      {
+        path :"/addfood",
+        element :<PrivateRoute>
+          <AddFood></AddFood>
+        </PrivateRoute>
+      },
+
+      {
+        path :"/myorders",
+        element :<PrivateRoute>
+          <MyOrders></MyOrders>
+        </PrivateRoute>
       },
   
     {

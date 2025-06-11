@@ -78,9 +78,9 @@ const Navbar = () => {
       src= {user && user.photoURL ? user.photoURL : profileIcon} 
       className='w-12 rounded-full ' /></div>
   <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
-  <li className=' font-bold'>My Foods</li>
-  <li className=' font-bold'>Add food</li>
-  <li className=' font-bold'>My Orders</li>
+  <Link to ='/myFoods' ><li className=' font-bold  hover:bg-red-700'>My Foods</li></Link>
+  <Link to ='/addfood'><li className=' font-bold  hover:bg-red-700'>Add food</li></Link>
+  <Link to ='/myorders'><li className=' font-bold  hover:bg-red-700'>My Orders</li></Link>
   <li><button onClick={handleLogOut} className="btn bg-blue-700 rounded-full text-amber-50">LogOut</button></li>
   </ul>
 </div>

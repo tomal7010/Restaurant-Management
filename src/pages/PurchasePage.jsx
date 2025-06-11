@@ -3,7 +3,8 @@ import { useParams, useNavigate } from 'react-router';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { AuthContext } from '../provider/AuthProvider';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const PurchasePage = () => {
   const { id } = useParams();
@@ -14,52 +15,52 @@ const PurchasePage = () => {
 
   useEffect(() => {
     fetch(`http://localhost:3000/food/${id}`)
-      .then(res => res.json())
-      .then(data => setFood(data))
-      .catch(err => console.error('Error fetching food:', err));
+      .then((res) => res.json())
+      .then((data) => setFood(data))
+      .catch((err) => console.error('Error fetching food:', err));
   }, [id]);
 
-
-
-
   const handlePurchase = () => {
-  if (!food || quantity < 1 || quantity > food.quantity) {
-    alert("Invalid quantity selected.");
-    return;
+    if (!food || quantity < 1 || quantity > food.quantity) {
+      toast.warning(' Invalid quantity selected.', { position: 'top-right' });
+      return;
+    }
 
-  }
+    const purchaseData = {
+      purchaseCount: (food.purchaseCount || 0) + 1,
+      quantity: food.quantity - Number(quantity),
+      buyerEmail: user?.email,
+      buyerName: user?.displayName,
+      foodPrice: food.price,
+      foodName: food.foodName,
+      purchaseQuantity: Number(quantity),
+      lastPurchasedAt: Date.now(),
+      foodImage: food.foodImage,
+      foodCategory: food.foodCategory,
+      foodQuantity: food.quantity - Number(quantity),/////
+      foodOrigin: food.foodOrigin,
+      foodDescription: food.description,
+    };
 
-  const purchaseData = {
-    purchaseCount: (food.purchaseCount || 0) + 1,
-    //purchaseCount: food.purchaseCount || 0,
-    quantity: food.quantity - Number(quantity),
-    buyerEmail: user?.email,
-    buyerName : user?.displayName,
-    foodName: food.foodName,
-    purchaseQuantity: Number(quantity),
-    lastPurchasedAt: Date.now()
+    fetch(`http://localhost:3000/food/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(purchaseData),
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error('Failed to update food');
+        return res.json();
+      })
+      .then(() => {
+        toast.success(' Purchase successful!', { position: 'top-right' });
+        setTimeout(() => {
+          navigate('/allfoods');
+        }, 1500);
+      })
+      .catch(() => {
+        toast.error(' Purchase failed. Please try again.', { position: 'top-right' });
+      });
   };
-
-  fetch(`http://localhost:3000/food/${id}`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(purchaseData),
-  })
-    .then(res => {
-      if (!res.ok) throw new Error('Failed to update food');
-      return res.json();
-    })
-    .then(() => {
-      alert('Purchase successful!');
-      navigate('/allfoods');
-    })
-    .catch(err => {
-      console.error('Purchase failed:', err);
-      alert('Purchase failed. Please try again.');
-    });
-};
-
-
 
   if (!food) {
     return <div className="text-center mt-10">Loading food details...</div>;
@@ -68,8 +69,14 @@ const PurchasePage = () => {
   return (
     <div>
       <Navbar />
+      <ToastContainer />
+
+<h2 className="text-3xl font-bold mb-6 text-center pt-6">Purchase Food</h2>
+
+
+<div className='pb-6'>
       <div className="max-w-xl mx-auto px-4 py-8 bg-white shadow-md rounded-lg">
-        <h2 className="text-2xl font-bold mb-6 text-center">Purchase Food</h2>
+
 
         <div className="space-y-4">
           <div>
@@ -96,7 +103,6 @@ const PurchasePage = () => {
             <label className="block font-medium">Quantity</label>
             <input
               type="number"
-              min=""
               max={food.quantity}
               value={quantity}
               onChange={(e) => setQuantity(Number(e.target.value))}
@@ -132,7 +138,7 @@ const PurchasePage = () => {
             Purchase
           </button>
         </div>
-      </div>
+      </div></div>
       <Footer />
     </div>
   );
