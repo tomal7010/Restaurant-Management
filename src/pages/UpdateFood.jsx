@@ -15,7 +15,7 @@ const UpdateFood = () => {
   const [food, setFood] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/food/${id}`)
+    fetch(`https://server11-livid.vercel.app/food/${id}`)
       .then(res => res.json())
       .then(data => setFood(data));
   }, [id]);
@@ -34,7 +34,7 @@ const UpdateFood = () => {
       addedBy: user?.email, 
     };
 
-    fetch(`http://localhost:3000/updatefood/${id}`, {
+    fetch(`https://server11-livid.vercel.app/updatefood/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(updatedFood),

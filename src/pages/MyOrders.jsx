@@ -11,7 +11,7 @@ const MyOrders = () => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3000/all-purchases')
+    fetch('https://server11-livid.vercel.app/all-purchases')
       .then(res => res.json())
       .then(data => {
         const filtered = data.filter(item => item.buyerEmail === user?.email);
@@ -24,7 +24,7 @@ const MyOrders = () => {
   }, [user?.email]);
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:3000/purchase/${id}`, {
+    fetch(`https://server11-livid.vercel.app/purchase/${id}`, {
       method: 'DELETE',
     })
       .then(res => {

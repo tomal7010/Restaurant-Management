@@ -14,7 +14,7 @@ const PurchasePage = () => {
   const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/food/${id}`)
+    fetch(`https://server11-livid.vercel.app/food/${id}`)
       .then((res) => res.json())
       .then((data) => setFood(data))
       .catch((err) => console.error('Error fetching food:', err));
@@ -42,7 +42,7 @@ const PurchasePage = () => {
       foodDescription: food.description,
     };
 
-    fetch(`http://localhost:3000/food/${id}`, {
+    fetch(`https://server11-livid.vercel.app/food/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(purchaseData),

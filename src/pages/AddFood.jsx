@@ -41,7 +41,7 @@ const AddFood = () => {
     };
 
     try {
-      const res = await fetch('http://localhost:3000/add-food', {
+      const res = await fetch('https://server11-livid.vercel.app/add-food', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

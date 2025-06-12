@@ -13,7 +13,7 @@ const Gallery = () => {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    fetch('http://localhost:3000/all-foods')
+    fetch('https://server11-livid.vercel.app/all-foods')
       .then(res => res.json())
       .then(data => {
         const selected = data.slice(0, 10); 

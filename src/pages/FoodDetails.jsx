@@ -9,7 +9,7 @@ const FoodDetails = () => {
   const [food, setFood] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/food/${id}`)
+    fetch(`https://server11-livid.vercel.app/food/${id}`)
       .then(res => res.json())
       .then(data => setFood(data))
       .catch(err => console.error(err));
@@ -20,7 +20,7 @@ const FoodDetails = () => {
 
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:3000/purchases/user/${user.email}`)
+      fetch(`https://server11-livid.vercel.app/purchases/user/${user.email}`)
         .then(res => res.json())
         .then(data => setPurchases(Array.isArray(data) ? data : [])) 
         .catch(err => {

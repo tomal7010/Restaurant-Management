@@ -10,7 +10,7 @@ const AllFoods = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://localhost:3000/all-foods') // all-foods api
+    fetch('https://server11-livid.vercel.app/all-foods') // all-foods api
       .then(res => res.json())
       .then(data => setallFoods(data))
       .catch(err => console.error(err));

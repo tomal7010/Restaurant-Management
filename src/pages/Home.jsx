@@ -16,7 +16,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://localhost:3000/foods') //  top 6 food api
+    fetch('https://server11-livid.vercel.app/foods') //  top 6 food api
       .then(res => res.json())
       .then(data => setFoods(data))
       .catch(err => console.error(err));
