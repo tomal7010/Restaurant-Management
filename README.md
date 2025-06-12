@@ -1,4 +1,4 @@
-<<<<<<<<<<Restaurant Management>>>>>>>>>>
+              ###   Restaurant Management   ###
 
 This full-stack Restaurant Management Website was developed to streamline the restaurant's operations, improve customer experience, and enhance online presence. The platform supports customer interactions such as food browsing, purchasing, and order tracking while also offering administrative capabilities for food management.
 
