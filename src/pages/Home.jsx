@@ -112,13 +112,13 @@ const Home = () => {
         ))}
       </div>
 
-       <div className="text-center mt-8">
+       <Link to='/allfoods'><div className="text-center mt-8 ">
         <button
-          className="bg-gray-800 hover:bg-gray-900 text-white px-6 py-3 rounded-md"
+          className="bg-gray-800 hover:bg-gray-900 text-white px-6 py-3 rounded-md cursor-pointer"
         >
-        <Link to='/allfoods'>See All</Link>
+        See All
         </button>
-      </div>
+      </div></Link>
 
 
 
