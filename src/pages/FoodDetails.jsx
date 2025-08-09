@@ -36,7 +36,11 @@ const FoodDetails = () => {
 
   return (
     <div>
-      <Navbar />
+
+      <div className='p-8'>
+        <Navbar />
+      </div>
+      
       <div className="max-w-3xl mx-auto px-4 py-8">
         <img src={food.foodImage} alt={food.foodName} className="w-full h-64 object-cover rounded-lg mb-6" />
 

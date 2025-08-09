@@ -27,7 +27,7 @@ const Navbar = () => {
 
 
     return (
-        <div className="navbar  mx-auto bg-amber-600  ">
+        <div className="navbar mx-auto bg-white fixed top-0 left-0 w-full z-50 ">
 
 
 

@@ -67,7 +67,11 @@ const AddFood = () => {
 
   return (
     <div>
+
+      <div className='p-8'>
       <Navbar />
+    </div> 
+      
       <ToastContainer position="top-right" autoClose={2000} />
 
       <div className="carousel w-full h-20 pt-4">

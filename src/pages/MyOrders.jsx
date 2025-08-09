@@ -39,11 +39,17 @@ const MyOrders = () => {
 
   return (
     <div>
-        <Navbar></Navbar>
+        
+
+       <div className='p-8'>
+      <Navbar />
+    </div> 
+
+
 
     <div className="max-w-5xl mx-auto px-4 py-10">
       <ToastContainer />
-      <h2 className="text-3xl font-bold mb-6 text-center">My Orders</h2>
+      <h2 className="text-3xl font-bold mb-6 text-center text-red-500">My Orders</h2>
 
       {orders.length === 0 ? (
         <p className="text-center text-gray-600">You have no orders yet.</p>

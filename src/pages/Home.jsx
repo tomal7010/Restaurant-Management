@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import bannerB from '../assets/banner2 (2).jpg'
-import bannerC from '../assets/banner3 (2).jpg'
-import bannerA from '../assets/banner1.jpg'
+import bannerC from '../assets/banner3 (2) (1).jpg'
+import bannerA from '../assets/banner1 (1).jpg'
 import extra1 from '../assets/extra1.jpg'
 import extra2 from '../assets/extra2.jpg'
 import { Link, useNavigate } from 'react-router';
@@ -22,6 +22,15 @@ const Home = () => {
       .catch(err => console.error(err));
   }, []);
 
+   // recent products
+  const recentProducts = foods.slice(0, 4); 
+
+  // Sample reviews
+  const reviews = [
+    { id: 1, name: "Rahim", text: "Amazing food and quick delivery!" },
+    { id: 2, name: "Karim", text: "Best restaurant in town. Highly recommend." },
+    { id: 3, name: "Fatema", text: "Loved the ambience and taste of food." },
+  ];
 
     return (
         <div>
@@ -32,11 +41,11 @@ const Home = () => {
       
       {/* Header Section */}
       
-      <div className="carousel w-full h-80">
+      <div className="carousel w-full h-80 ">
   <div id="slide1" className="carousel-item relative w-full">
     <img
       src={bannerA}
-      className="w-full" />
+      className="w-full " />
 
 {/* Text Overlay */}
 <div className="absolute inset-0 bg-opacity-50 flex flex-col items-center justify-center text-white text-center">
@@ -129,6 +138,8 @@ const Home = () => {
 <div className="bg-green-100 py-10 px-10 grid grid-cols-1 md:grid-cols-2 gap-6">
 
 
+
+      <Link to='/allfoods'>
       <div className="relative w-full h-[300px] overflow-hidden">
       <img
         src={extra1} 
@@ -141,8 +152,10 @@ const Home = () => {
         
       </div>
     </div>
+    </Link>
 
 
+    <Link to='/gallery'>
     <div className="relative w-full h-[300px] overflow-hidden">
       <img
         src={extra2} 
@@ -157,10 +170,62 @@ const Home = () => {
 
       </div>
     </div>
+    </Link>
 
 
 
         </div>
+
+
+
+
+{/* Recent Products */}
+      <div className="px-4 py-8 max-w-7xl mx-auto">
+        <h2 className="text-3xl font-bold mb-6 text-center">Recent Products</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {recentProducts.map(food => (
+            <div key={food._id} className="bg-white p-4 shadow-md rounded-xl text-center flex flex-col">
+              <img src={food.foodImage} alt={food.foodName} className="w-full h-48 object-cover rounded-md" />
+              <h3 className="text-xl font-semibold mt-3">{food.foodName}</h3>
+              <p className="text-gray-600">Category: {food.foodCategory}</p>
+              <p className="text-gray-600">Origin: {food.foodOrigin}</p>
+              <p className="text-green-600 font-medium">Price: ${food.price}</p>
+              
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Reviews */}
+      <div className="px-4 py-8 max-w-7xl mx-auto bg-gray-100 rounded-lg my-10 shadow-lg">
+        <h2 className="text-3xl font-bold mb-6 text-center">Customer Reviews</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {reviews.map(r => (
+            <div key={r.id} className="bg-white rounded-lg shadow-md p-6">
+              <p className="italic mb-4">"{r.text}"</p>
+              <h4 className="font-bold text-red-600">{r.name}</h4>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Newsletter */}
+      <div className="py-12 px-5 bg-red-600 text-white text-center rounded-lg max-w-7xl mx-auto my-10">
+        <h2 className="text-3xl font-semibold mb-4">Subscribe to Our Newsletter</h2>
+        <p className="mb-6 max-w-xl mx-auto">Get updates about new menu items, special offers, and events.</p>
+        <form className="flex flex-col sm:flex-row justify-center gap-4 max-w-md mx-auto">
+          <input
+            type="email"
+            placeholder="Your email address"
+            className="rounded-full px-5 py-3 text-gray-900 focus:outline-none"
+            required
+          />
+          <button type="submit" className="bg-white text-red-600 font-bold rounded-full px-6 py-3 hover:bg-gray-100 transition cursor-pointer">
+            Subscribe
+          </button>
+        </form>
+      </div>
+
 
 
         </div>

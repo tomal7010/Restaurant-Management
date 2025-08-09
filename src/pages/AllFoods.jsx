@@ -2,17 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
-import bannerA from '../assets/bg1.png'
+import bannerA from '../assets/bg1.png';
 
 const AllFoods = () => {
-  const [allfoods, setallFoods] = useState([]);
-  const [searchQuery, setSearchQuery] = useState(''); 
+  const [allfoods, setAllFoods] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [sortOrder, setSortOrder] = useState(''); // sorting state
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('https://server11-livid.vercel.app/all-foods') // all-foods api
+    fetch('https://server11-livid.vercel.app/all-foods')
       .then(res => res.json())
-      .then(data => setallFoods(data))
+      .then(data => setAllFoods(data))
       .catch(err => console.error(err));
   }, []);
 
@@ -21,29 +22,34 @@ const AllFoods = () => {
     food.foodName.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  // sort foods
+  const sortedFoods = [...filteredFoods].sort((a, b) => {
+    if (sortOrder === 'asc') return a.price - b.price;
+    if (sortOrder === 'desc') return b.price - a.price;
+    return 0;
+  });
+
   return (
     <div>
-      <Navbar />
+      {/* Navbar */}
+      <div className='p-8'>
+        <Navbar />
+      </div>
 
- <div className="carousel w-full h-28 pt-4">
-<div  className="carousel-item relative w-full">
-    <img src={bannerA}
-      className="w-full" />
-{/* Text Overlay */}
-<div className="absolute inset-0 bg-opacity-50 flex flex-col items-center justify-center text-white text-center">
-      <h2 className="text-4xl font-bold mb-2 text-black">All Foods</h2>
-    </div></div></div>
+      {/* Banner */}
+      <div className="carousel w-full h-28 pt-4">
+        <div className="carousel-item relative w-full">
+          <img src={bannerA} className="w-full" alt="banner" />
+          <div className="absolute inset-0 bg-opacity-50 flex flex-col items-center justify-center text-white text-center">
+            <h2 className="text-4xl font-bold mb-2 text-black">All Foods</h2>
+          </div>
+        </div>
+      </div>
 
-
-
-<div className="px-4 py-8 max-w-7xl mx-auto">
-
-        
-
-        {/*<h2 className="text-3xl font-bold mb-6 text-center">All Foods</h2>*/}
-
-        {/*  Search Input */}
+      <div className="px-4 py-8 max-w-7xl mx-auto">
+        {/* Search + Sort */}
         <div className="flex justify-center mb-6">
+          {/* Search */}
           <label className="input flex items-center gap-2 border rounded-md px-3 py-2">
             <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2.5" fill="none" stroke="currentColor">
@@ -53,20 +59,37 @@ const AllFoods = () => {
             </svg>
             <input
               type="search"
-              required
               placeholder="Search"
-              value={searchQuery} 
-              onChange={(e) => setSearchQuery(e.target.value)} 
-              className="outline-none"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="outline-none w-full"
             />
           </label>
+
+          {/* Sort */}
+          <select
+            className="border border-gray-300 rounded-md px-4 py-2"
+            value={sortOrder}
+            onChange={(e) => setSortOrder(e.target.value)}
+          >
+            <option value="">Sort by</option>
+            <option value="asc">Price: Low to High</option>
+            <option value="desc">Price: High to Low</option>
+          </select>
         </div>
 
-        {/*  Changed allfoods → filteredFoods */}
+        {/* Product Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredFoods.map(food => (
-            <div key={food._id} className="bg-white p-4 shadow-md rounded-xl text-center">
-              <img src={food.foodImage} alt={food.foodName} className="w-full h-48 object-cover rounded-md" />
+          {sortedFoods.map(food => (
+            <div
+              key={food._id}
+              className="bg-white p-4 shadow-md rounded-xl text-center flex flex-col"
+            >
+              <img
+                src={food.foodImage}
+                alt={food.foodName}
+                className="w-full h-48 object-cover rounded-md"
+              />
               <h3 className="text-xl font-semibold mt-3">{food.foodName}</h3>
               <p className="text-gray-600">Category: {food.foodCategory}</p>
               <p className="text-gray-600">Origin: {food.foodOrigin}</p>
@@ -74,7 +97,7 @@ const AllFoods = () => {
               <p className="text-sm text-gray-500 mt-1">Quantity: {food.quantity}</p>
               <button
                 onClick={() => navigate(`/food/${food._id}`)}
-                className="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded cursor-pointer"
+                className="mt-auto bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded cursor-pointer"
               >
                 Details
               </button>

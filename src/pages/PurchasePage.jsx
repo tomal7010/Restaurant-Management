@@ -68,7 +68,11 @@ const PurchasePage = () => {
 
   return (
     <div>
-      <Navbar />
+
+      <div className='p-8'>
+        <Navbar />
+      </div>
+      
       <ToastContainer />
 
 <h2 className="text-3xl font-bold mb-6 text-center pt-6">Purchase Food</h2>

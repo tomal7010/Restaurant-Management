@@ -28,7 +28,13 @@ const MyFoods = () => {
 
   return (
     <div>
+      
+
+      <div className='p-8'>
       <Navbar />
+    </div> 
+
+
 
        <div className="carousel w-full h-28 pt-4">
       <div  className="carousel-item relative w-full">
